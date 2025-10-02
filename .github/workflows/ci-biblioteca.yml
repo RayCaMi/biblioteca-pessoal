@@ -56,4 +56,4 @@ jobs:
           context: .
           push: true
           # A tag da imagem será no formato: ghcr.io/SEU_USUARIO/SEU_REPOSITORIO:latest
-          tags: ghcr.io/${{ toLowerCase(github.repository) }}:latest
+          tags: ghcr.io/${{ github.repository.toLowerCase() }}:latest
