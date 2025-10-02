@@ -1,0 +1,37 @@
+# Define o nome do workflow, que será exibido na aba "Actions" do GitHub
+name: CI-CD Biblioteca Pessoal
+
+# Configura os gatilhos (triggers) que iniciarão o workflow
+on:
+  # Roda o workflow em pushes para a branch main
+  push:
+    branches: [ "main" ]
+  # Roda o workflow em pull requests que têm a branch main como alvo
+  pull_request:
+    branches: [ "main" ]
+
+# Agrupa todos os jobs que o pipeline irá executar
+jobs:
+  # Define o primeiro job do pipeline, com o ID "build"
+  build:
+    # Define o nome de exibição para o job na interface do GitHub
+    name: Build & Test
+    # Configura a máquina virtual onde o job será executado
+    runs-on: ubuntu-latest
+
+    # Define a sequência de passos que o job "build" irá executar
+    steps:
+      # 1. Checkout do código: Baixa o código do seu repositório para a máquina virtual
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Java: Instala a versão especificada do Java (JDK) na máquina
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Build com Maven: Roda o comando do Maven para compilar e testar o projeto
+      - name: Build and test with Maven
+        run: mvn -B verify --file pom.xml
