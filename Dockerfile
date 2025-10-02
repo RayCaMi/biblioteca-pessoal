@@ -9,6 +9,9 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
+# AQUI ESTÁ A CORREÇÃO: Adiciona permissão de execução ao script mvnw
+RUN chmod +x ./mvnw
+
 # O comando "go-offline" baixa todas as dependências de uma vez para otimizar o cache
 RUN ./mvnw dependency:go-offline
 
